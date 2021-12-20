@@ -72,7 +72,8 @@
 					// process the returned data from the post
 					if (data.substring(0, 7) == 'http://' || data.substring(0, 8) == 'https://'){
 						// $("#url").val(data).focus();
-						$('#shorturl').text(data);
+						$('#shorturl').text("The shorten url is "+data);
+
 						
 						// display a success message to the user
 						$("#message").html('Your link has been shortened!');

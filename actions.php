@@ -10,7 +10,8 @@ function generate_short_url(){
 	
 	// verify the code is not taken
 	while (count_urls($code) > 0)
-		$code = substr($charset, 0, MIN_URL_LENGTH);
+		generate_short_url();
+		// $code = substr($charset, 0, MIN_URL_LENGTH);
 	
 	// return a randomized code of the desired length
 	return $code;

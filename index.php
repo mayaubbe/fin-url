@@ -41,15 +41,12 @@
 						<td align="right"><input type="text" name="url" id="url" value="" placeholder="http://" style="width: 100%;" /></td>
 						<td align="left" width="1"><input type="submit" name="lesnBtn" value="short url" /></td>
 					</tr>
-					<tr>
-						<td colspan="2">
-							<span id="shorturl"></span>
-						</td>
-					</tr>
+					
 				</form>
 			</table>
-			
+
 			<h3 id="message" class="success"><?php echo ( isset($message) ? $message : '' );  ?></h3>
+			<br>
 			
 			<div class="meta">
 				There are currently <b id="counter"><?php echo number_format(count_urls()); ?></b> short urls.
@@ -62,6 +59,7 @@
 	$(document).ready(function(){
 		// process the form submission using javascript
 		$("#shortUrlForm").submit(function(event){
+			event.preventDefault();
 			// get the url to be shortened
 			var url = $("#url").val();
 			
@@ -71,19 +69,15 @@
 					
 					// process the returned data from the post
 					if (data.substring(0, 7) == 'http://' || data.substring(0, 8) == 'https://'){
-						// $("#url").val(data).focus();
-						$('#shorturl').text("The shorten url is "+data);
-
-						
+												
 						// display a success message to the user
-						$("#message").html('Your link has been shortened!');
+						$("#message").html('Your link has been shortened!<br> The shorten url is <a href="'+data+'">'+data+'</a>');
 						
-						// update the counter shown on the page
-						var counter = $("#counter").text();
-						$("#counter").text(parseInt(counter) + 1);
+						
 					}
 					else
 						$("#message").html(data);
+
 				});	
 			}
 			
@@ -96,5 +90,15 @@
 		
 		// select the text box on page load
 		$("#url").focus();
+	// Updating count
+		setInterval(() => {
+			$.get("./routes.php?count=fetch", function(counter){
+					
+				$("#counter").text(parseInt(counter));
+
+
+				});	
+			
+		}, 5000);
 	});
 </script>

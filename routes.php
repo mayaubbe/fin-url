@@ -3,6 +3,13 @@ require_once('database.php');
 require_once('config.php');
 require_once('actions.php');
 
+// Fetching counts
+if (isset($_GET['count']) && $_GET['count'] != ''){
+	$count = (int)count_urls();
+	echo $count;
+	exit;
+}
+
 // verify the url data has been posted to this script
 if (isset($_POST['url']) && $_POST['url'] != '')
 	$url = $_POST['url']; 
@@ -32,4 +39,5 @@ if ($url != '' && strlen($url) > 0){
 }
 else
 	echo 'No url was found';
+
 ?>

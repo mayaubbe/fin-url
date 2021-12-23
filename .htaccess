@@ -7,6 +7,10 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # allow the url codes to be sent as get data
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteBase /fin-url/
+RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ /index.php?code=$1 [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /fin-url/index.php?code=$1 [NC,L,QSA]
+
+
